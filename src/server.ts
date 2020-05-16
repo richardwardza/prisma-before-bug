@@ -1,19 +1,20 @@
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient({
-    log: ['query']
+    // log: ['query']
 
 });
 
-//@ts-ignore
-prisma.on('query', (e: any) => {
-    e.timestamp;
-    e.query;
-    e.params;
-    e.duration;
-    e.target;
-    console.log(e);
-});
+// //@ts-ignore
+// prisma.on('query', (e: any) => {
+//     e.timestamp;
+//     e.query;
+//     e.params;
+//     e.duration;
+//     e.target;
+//     console.log(e);
+// });
+
 const data = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'];
 
 (async () => {
@@ -43,10 +44,10 @@ const data = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l'];
             console.log(set3[i].id);
         }
 
-        console.log(`Retrieve second set of 2 (from before ${set3[1].id}):`);
+        console.log(`Retrieve second set of 2 (from before ${set3[0].id}):`);
         const set4 = await prisma.client.findMany({
             first: 2,
-            before: { id: set3[0].id },  // Before SET3[0].id - first item of set 3
+            before: { id: set3[0].id },
             orderBy: { id: "desc" }
         });
         for (let i = 0; i < set1.length; i++) {
